@@ -119,6 +119,10 @@ func parseIPRangeFile(file string) (chan string, error) {
 				ipranges = append(ipranges, c.List()...)
 			}
 		} else {
+			// 针对带端口的ip xxx:xx
+			if i := strings.Index(line, ":"); i != -1 {
+				line = line[:i]
+			}
 			ipranges = append(ipranges, splitIP(line)...)
 		}
 	}
